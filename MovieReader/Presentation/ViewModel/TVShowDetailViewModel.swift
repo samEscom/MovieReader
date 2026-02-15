@@ -28,6 +28,7 @@ final class TVShowDetailViewModel: ObservableObject {
             
             await MainActor.run {
                 self.details = detail
+                print(self.details!)
             }
         } catch {
             print(error)

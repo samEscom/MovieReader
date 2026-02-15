@@ -15,20 +15,61 @@ struct DetailView: View {
     }
     
     var body: some View {
-        VStack{
+        ZStack{
             if let details = viewModel.details {
-                Text(details.name)
-                    .font(.headline)
-                    .padding(.bottom, 20)
-                Text(details.overview)
-                if !details.genres.isEmpty {
-                    Text("Generos")
-                        .font(.subheadline)
-                        .padding(.bottom, 5)
-                    ForEach(details.genres) { genre in
-                        Text(genre.name)
+                
+                let imageUrl = "https://image.tmdb.org/t/p/original/\(details.backdrop_path)"
+                
+                AsyncImage(url: URL(string: imageUrl)){ step in
+                    switch step {
+                    case .success(let image):
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                    case .failure(_):
+                        Color.black
+                    case .empty:
+                        ProgressView()
+                    @unknown default:
+                        EmptyView()
                     }
+                
                 }
+                .ignoresSafeArea()
+                  
+                LinearGradient(
+                    gradient: Gradient(colors: [.clear, .black.opacity(0.8), .black]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                VStack{
+                    Spacer()
+                    Text(details.name)
+                        .font(.system(size: 40, weight: .bold))
+                        .foregroundColor(.white)
+                    HStack {
+                                    ForEach(details.genres) { genre in
+                                        Text(genre.name)
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                        
+                                        if genre.id != details.genres.last?.id {
+                                            Circle()
+                                                .frame(width: 4, height: 4)
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                }
+                    Text(details.overview)
+                                    .font(.body)
+                                    .foregroundColor(.white)
+                                    .lineLimit(3) // Para que no sature la pantalla
+                                    .padding(.bottom, 40) // Espacio al final de la pantalla
+                    
+                    
+                }
+                .padding(.horizontal)
                 
             } else {
                 Text("Loading...")
@@ -37,9 +78,12 @@ struct DetailView: View {
         }
         .onAppear {
             Task {
+                print(viewModel.showID)
                 await viewModel.loadDetails(id: viewModel.showID)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Asegura que el ZStack sea gigante
+        .background(Color.black)
     }
 }
 

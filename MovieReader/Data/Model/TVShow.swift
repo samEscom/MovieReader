@@ -13,10 +13,15 @@ struct TVShow: Codable {
     let name: String
     let first_air_date: String
     let vote_average: Double
+    let backdrop_path: String
+    let poster_path: String
 }
 
 
 struct PopularTVShowResponse: Codable {
+    let page: Int
     let results: [TVShow]
+    let total_pages: Int
+    let total_results: Int
 }
 

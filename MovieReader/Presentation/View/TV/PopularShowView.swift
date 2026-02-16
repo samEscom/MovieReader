@@ -26,7 +26,7 @@ struct PopularShowView: View {
                         NavigationLink(destination: DetailView(
                             viewModel: TVShowDetailViewModel(id: show.id))) {
                                 VStack(alignment: .leading) {
-                                    AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w342/\(show.poster_path)")) { image in
+                                    AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w342/\(show.poster_path!)")) { image in
                                         image.resizable()
                                         .aspectRatio(2/3, contentMode: .fill)
                                     } placeholder: {

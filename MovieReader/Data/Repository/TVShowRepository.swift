@@ -6,6 +6,6 @@
 //
 
 protocol TVShowRepository {
-    func fetchTVShows() async throws -> [TVShow]
+    func fetchTVShows(page: Int) async throws -> PopularTVShowResponse
     func fetchTVShowDetails(id: Int) async throws -> TVShowDetail
 }

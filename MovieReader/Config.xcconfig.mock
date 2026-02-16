@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  MovieReader
+//
+//  Created by Samuel Chavez on 15/02/26.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+API_URL = api.themoviedb.org
+API_VERSION = 3
+API_TOKEN =

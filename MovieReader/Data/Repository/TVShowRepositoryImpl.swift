@@ -15,9 +15,9 @@ final class TVShowRepositoryImpl: TVShowRepository {
         self.apiClient = apiCLient
     }
     
-    func fetchTVShows() async throws -> [TVShow] {
-        let response: PopularTVShowResponse = try await apiClient.request(endpoint: .popularShows)
-        return response.results
+    func fetchTVShows(page: Int) async throws -> PopularTVShowResponse {
+        let response: PopularTVShowResponse = try await apiClient.request(endpoint: .popularShows(page: page))
+        return response
     }
     
     func fetchTVShowDetails(id: Int) async throws -> TVShowDetail {

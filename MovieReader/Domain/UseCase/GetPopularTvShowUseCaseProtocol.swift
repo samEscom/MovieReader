@@ -7,7 +7,7 @@
 import Foundation
 
 protocol GetPopularTvShowUseCaseProtocol {
-    func execute() async throws -> [TVShow]
+    func execute(page: Int) async throws -> PopularTVShowResponse
 }
 
 
@@ -20,7 +20,7 @@ final class GetPopularTvShowUseCase: GetPopularTvShowUseCaseProtocol {
     }
     
     
-    func execute() async throws -> [TVShow] {
-        try await self.repository.fetchTVShows()
+    func execute(page: Int) async throws -> PopularTVShowResponse {
+        try await self.repository.fetchTVShows(page: page)
     }
 }

@@ -65,7 +65,7 @@ struct DetailView: View {
                                     .font(.body)
                                     .foregroundColor(.white)
                                     .lineLimit(3) // Para que no sature la pantalla
-                                    .padding(.bottom, 40) // Espacio al final de la pantalla
+                                    .padding(.vertical, 10) // Espacio al final de la pantalla
                     
                     
                 }

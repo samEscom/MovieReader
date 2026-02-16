@@ -17,6 +17,7 @@ let columns = [
 struct PopularShowView: View {
     @StateObject private var viewModel = PopularShowViewModel()
     
+    
     var body: some View {
         NavigationStack{
             ScrollView{
@@ -37,11 +38,24 @@ struct PopularShowView: View {
                     }
                 }
             }
+            HStack{
+                Button("Anterior"){
+                    Task {
+                        viewModel.previousPage()
+                    }
+                }
+                .disabled(viewModel.page == 1)
+                Button("Siguiente"){
+                    Task{
+                        viewModel.nextPage()
+                    }
+                }.disabled(viewModel.page == viewModel.totalPage)
+            }
         }
         .navigationTitle("Popular Shows")
         .onAppear {
             Task {
-                viewModel.loadPopularShows()
+                viewModel.load(page: 1)
             }
         }
     }

@@ -15,18 +15,19 @@ enum HTTPMethod: String {
 
 
 enum Endpoint {
-    case popularShows
+    case popularShows(page: Int = 1)
     case tvShowDetails(id: Int)
     
     var url: URL {
-        let baseURL = "https://api.themoviedb.org/3"
-        let apiKey = ""
+        let url = "https://\(APIConfig.apiURL)/\(APIConfig.apiVersion)"
+        
+        let apiKey = APIConfig.apiToken
         
         switch self {
-        case .popularShows:
-            return URL(string: "\(baseURL)/tv/popular?api_key=\(apiKey)&lenguage=es_ES&page=1")!
+        case .popularShows(let page):
+            return URL(string: "\(url)/tv/popular?api_key=\(apiKey)&lenguage=es_ES&page=\(page)")!
         case .tvShowDetails(let id):
-            return URL(string: "\(baseURL)/tv/\(id)?api_key=\(apiKey)&lenguage=es_ES")!
+            return URL(string: "\(url)/tv/\(id)?api_key=\(apiKey)&lenguage=es_ES")!
         }
         
         
